@@ -25,7 +25,9 @@ const ProductsSection = () => {
     <div className={classes.root}>
       <Grid container xs={12} spacing={3}>
         {(productStore?.products || []).map((product) => (
-          <ProductCard product={product} key={product.id} />
+          <Grid item xs key={product.id}>
+            <ProductCard product={product} />
+          </Grid>
         ))}
       </Grid>
     </div>

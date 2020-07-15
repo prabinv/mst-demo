@@ -43,6 +43,10 @@ export const Product = t.model({
   sku: t.string
 }).views((self) => ({
   get displayImageUrl() {
-    return self.images?.[0]?.imageLink.fullUri;
+    if (!self.images?.[0]?.imageLink) {
+      return null;
+    }
+    const transform = 'w_250,h_250,c_fit,f_auto,q_auto/'
+    return `${self.images[0].imageLink.uriBase}${transform}${self.images[0].imageLink.imagePath}`;
   }
 }));

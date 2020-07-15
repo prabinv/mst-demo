@@ -11,11 +11,12 @@ import * as defaultImage from '../default-image.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    minWidth: 300,
     maxWidth: 345,
-    height: 300,
+    height: 400,
   },
   media: {
-    height: 140,
+    height: 250,
   },
   actions: {
     width: '100%',

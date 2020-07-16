@@ -67,4 +67,12 @@ export const CartProduct = t.model({
   images: t.maybeNull(t.array(Image)),
   requiresShipping: t.maybeNull(t.boolean),
   isTaxable: t.maybeNull(t.boolean),
-});
+}).views((self) => ({
+  get displayImageUrl() {
+    if (!self.images?.[0]?.imageLink) {
+      return null;
+    }
+    const transform = 'w_250,h_250,c_fit,f_auto,q_auto/'
+    return `${self.images[0].imageLink.uriBase}${transform}${self.images[0].imageLink.imagePath}`;
+  }
+}));

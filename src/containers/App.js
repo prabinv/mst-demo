@@ -9,6 +9,7 @@ import { Provider  } from '../models';
 import { createRootStore } from '../models';
 import { apiClient } from '../services/apiClient';
 import ProductsSection from '../components/ProductsSection';
+import CartSection from '../components/CartSection';
 
 const theme = createMuiTheme();
 
@@ -33,7 +34,12 @@ function App() {
                   <ProductsSection />
                 </Box>
               </div>
-              <div className="App-content">Cart</div>
+              <div className="App-content">
+                <Box>                  
+                  Cart
+                  <CartSection />
+                </Box>
+              </div>
           </div>
         </Provider>
       </ThemeProvider>

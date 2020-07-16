@@ -1,8 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
-import GridListTile from '@material-ui/core/GridListTile';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import { useMst } from '../models';
 import ProductCard from './ProductCard';
 import Grid from '@material-ui/core/Grid';

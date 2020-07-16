@@ -50,3 +50,21 @@ export const Product = t.model({
     return `${self.images[0].imageLink.uriBase}${transform}${self.images[0].imageLink.imagePath}`;
   }
 }));
+
+export const CartProduct = t.model({
+  id: t.identifier,
+  imageMetadata: t.frozen(),
+  msrp: t.maybeNull(t.number),
+  name: t.maybeNull(t.string),
+  price: t.maybeNull(t.number),
+  sku: t.maybeNull(t.string),
+  productVariantId: t.maybeNull(t.string),
+  productVariants: t.maybeNull(t.array(ProductVariant)),
+  seoFriendlyName: t.maybeNull(t.string),
+  state: t.maybeNull(t.string),
+  usuallyShipsInDays: t.maybeNull(t.number),
+  weight: t.maybeNull(t.number),
+  images: t.maybeNull(t.array(Image)),
+  requiresShipping: t.maybeNull(t.boolean),
+  isTaxable: t.maybeNull(t.boolean),
+});

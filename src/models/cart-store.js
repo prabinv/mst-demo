@@ -1,8 +1,8 @@
-import { types as t } from 'mobx-state-tree';
-import { Product } from './product';
+import { types as t, getEnv, flow } from 'mobx-state-tree';
+import { CartProduct } from './product';
 
 const CartItem = t.model({
-  product: t.reference(Product),
+  product: CartProduct,
   quantity: t.number
 });
 
@@ -22,9 +22,21 @@ const Cart = t.model({
   taxAmount: t.maybeNull(t.number),
   grandTotal: t.maybeNull(t.number),
   discountAmount: t.maybeNull(t.number),
-  messages: t.maybeNull(t.array(t.string)),
+  messages: t.maybeNull(t.array(t.model({
+    message: t.string,
+    productId: t.string,
+  }))),
   totalWithoutReductions: t.maybeNull(t.number),
-  availableShippingMethods: t.maybeNull(t.array(t.model({})))
+  availableShippingMethods: t.maybeNull(t.array(t.model({})), [])
+}).actions((self) => {
+  return {
+    afterCreate() {
+      self.totalWithoutReductions = 0;
+      self.totalItems = 0;
+      self.total = 0;
+      self.availableShippingMethods = [];
+    }
+  }
 });
 
 export const CartStore = t.model({

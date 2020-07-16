@@ -1,7 +1,7 @@
 import { types as t } from 'mobx-state-tree';
 
 export const ProductVariant = t.model({
-  id: t.string,
+  id: t.identifier,
   sku: t.string,
   variants: t.array(t.model({})),
   isInventoryTracked: t.boolean,

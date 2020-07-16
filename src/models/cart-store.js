@@ -41,4 +41,37 @@ const Cart = t.model({
 
 export const CartStore = t.model({
   cart: t.maybeNull(Cart)
+}).actions((self) => {
+  const { apiClient } = getEnv(self);
+
+  const createCart = () => apiClient.post('/carts');
+
+  const addItemToCart = flow(function* (product, quantity = 1) {
+    const productToAdd = product.toJSON();
+    if (!self.cart) {
+      const { data } = yield createCart();
+      self.cart = Cart.create(data);
+    }
+    self.cart.items.push({
+      product: {
+        id: productToAdd.id,
+        name: productToAdd.name,
+        productVariantId: productToAdd.productVariants.id,
+        images: productToAdd.images,
+        state: productToAdd.state,
+        price:  productToAdd.price,
+        seoFriendlyName: productToAdd.seo.friendlyName,
+        sku: productToAdd.sku,
+      },
+      quantity
+    });
+    self.cart.totalItems = (self.cart.totalItems ?? 0) + 1;
+    const response = yield apiClient.put(`/carts/${self.cart.id}`, self.cart);
+    self.cart = response.data;
+    return self.cart;
+  });
+
+  return {    
+    addItemToCart
+  };
 });

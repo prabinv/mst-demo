@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onAddToCartClicked }) {
   const classes = useStyles();
 
   return (
@@ -46,7 +46,7 @@ export default function ProductCard({ product }) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <Button variant="contained" size="small" color="primary">
+        <Button variant="contained" size="small" color="primary" onClick={() => onAddToCartClicked(product)}>
           Add to Cart
         </Button>
       </CardActions>

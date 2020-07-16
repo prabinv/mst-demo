@@ -18,13 +18,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductsSection = () => {
   const classes = useStyles();
-  const { productStore } = useMst();
+  const { cartStore, productStore } = useMst();
+
+  const addItemToCart = (product) => {
+    cartStore.addItemToCart(product, 1);
+  }
+
   return (
     <div className={classes.root}>
       <Grid container xs={12} spacing={3}>
         {(productStore?.products || []).map((product) => (
           <Grid item xs key={product.id}>
-            <ProductCard product={product} />
+            <ProductCard product={product} onAddToCartClicked={addItemToCart}/>
           </Grid>
         ))}
       </Grid>
